@@ -1,15 +1,12 @@
-import React, {Component} from 'react';
-import Counter from './Counter';
-// import User from './User';
+import React from 'react';
+import Container from './type tags/Container';
 
 function App() {
   return (
     <>
-    {/* <div className='header'>App</div> */}
-    {/* <User name="Erfan"/>
-    <User name="Mohammad"/>
-  <User name="Nila"/> */}
-    <Counter>Erfan asadi</Counter>
+      <h1>session 2</h1>
+      {/* <Container /> */}
+      <Container />
     </>
   )
 ;
