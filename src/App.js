@@ -1,18 +1,13 @@
 import React from 'react';
-import Container from './type tags/Container';
+import './App.css';
+import Card from './Card';
 
-function App() {
+const App = () => {
   return (
-    <>
-      <h1>session 2</h1>
-      {/* <Container /> */}
-      <Container />
-    </>
+    <div className='app'>
+        <Card />
+    </div>
   )
-;
 }
 
-
-
-export default App;
-
+export default App
