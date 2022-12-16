@@ -1,22 +1,30 @@
-import React from 'react';
-import Home from './pages/Home';
-import About from './pages/About';
-import Product from './pages/Product';
-import Nav from './Nav';
+import React, { useState } from 'react';
+import './App.css';
+import ColorsList from './ColorsList';
 
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-
+const colorsList = [
+  {
+    color: '#ce0a28',
+    selected: true,
+    id: 1
+  },
+  {
+    color: '#17cd61',
+    selected: false,
+    id: 2
+  },
+  {
+    color: '#2d2a2d',
+    selected: false,
+    id: 3
+  }
+]
 const App = () => {
+  const [colors, setColors] = useState(colorsList);
+  const activeColor = colors.find(color => color.selected)
   return (
-    <div>
-      <BrowserRouter>
-      <Nav />
-        <Routes>
-          <Route path='/' element={ <Home />} />
-          <Route path='/product' element={ <Product />} />
-          <Route path='/about' element={ <About />} />
-        </Routes>
-      </BrowserRouter>
+    <div className='App' style={{backgroundColor: activeColor.color}}>
+      <ColorsList colors={colors} setColors={setColors} />
     </div>
   )
 }
