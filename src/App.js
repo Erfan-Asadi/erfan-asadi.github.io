@@ -24,6 +24,7 @@ const App = () => {
   const activeColor = colors.find(color => color.selected)
   return (
     <div className='App' style={{backgroundColor: activeColor.color}}>
+      <h1>Background color is: <code>{activeColor.color}</code></h1>
       <ColorsList colors={colors} setColors={setColors} />
     </div>
   )

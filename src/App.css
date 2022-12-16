@@ -10,8 +10,12 @@
     height: 100vh;
     display: grid;
     place-items: center;
+    align-content: center;
+    gap: 70px;
 }
-
+h1 {
+    color: #fff;
+}
 .colors-container {
     display: flex;
     gap: 15px;
