@@ -1,33 +1,57 @@
-import React, { useState } from 'react';
+import React, { createRef, useRef, useState } from "react";
 import './App.css';
-import ColorsList from './ColorsList';
+import InputField from "./Components/InputField";
 
-const colorsList = [
-  {
-    color: '#ce0a28',
-    selected: true,
-    id: 1
-  },
-  {
-    color: '#17cd61',
-    selected: false,
-    id: 2
-  },
-  {
-    color: '#2d2a2d',
-    selected: false,
-    id: 3
+function App() {
+  const inputRefs = useRef([
+    createRef(), createRef()
+  ]);
+  const [data, setData] = useState({});
+
+  function handleChange(name , value) {
+    setData(prev => ({...prev, [name]: value}))
   }
-]
-const App = () => {
-  const [colors, setColors] = useState(colorsList);
-  const activeColor = colors.find(color => color.selected)
+
+  function submitForm(e) {
+    e.preventDefault();
+    let isValid = true;
+
+    for(let i=0; i < inputRefs.current.length; i++) {
+      const valid = inputRefs.current[i].current.validate();
+      if(!valid) {
+        isValid = false;
+      }
+    }
+    if(!isValid) {
+      return
+    }
+    console.log("Logged In!")
+    // Carry on as normal
+  }
+  console.log(data)
   return (
-    <div className='App' style={{backgroundColor: activeColor.color}}>
-      <h1>Background color is: <code>{activeColor.color}</code></h1>
-      <ColorsList colors={colors} setColors={setColors} />
+    <div className="App">
+      <form onSubmit={submitForm} className="form">
+        <h1>React Register Form</h1>
+        <InputField
+          ref={inputRefs.current[0]}
+          name='username'
+          label='username*:'
+          value={data.username}
+          onChange={handleChange}
+          validation="required|min:6|max:12"  />
+        <InputField
+          ref={inputRefs.current[1]}
+          value={data.password}
+          name='password'
+          label='password*:'
+          type='password'
+          onChange={handleChange}
+          validation="required|min:6"  />
+          <button>Login</button>
+      </form>
     </div>
   )
 }
 
-export default App
+export default App;
