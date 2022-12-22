@@ -2,6 +2,7 @@ import React from 'react'
 import ExpenseForm from './components/ExpenseForm'
 import ExpenseTable from './components/ExpenseTable'
 import Styled from 'styled-components';
+import AccountingContextProvider from './contexts/AccountingContext';
 
 const AppComponent = Styled.main`
     display: flex;
@@ -37,11 +38,13 @@ const App = () => {
 
 
   return (
-    <AppComponent>
-      <ExpenseTable theme="#2B61E5" type="income"/>
-      <ExpenseForm />
-      <ExpenseTable theme="#da2628" type="expense" />
-    </AppComponent>
+    <AccountingContextProvider>
+      <AppComponent>
+        <ExpenseTable theme="#2B61E5" type="income"/>
+        <ExpenseForm />
+        <ExpenseTable theme="#da2628" type="expense" />
+      </AppComponent>
+    </AccountingContextProvider>
   )
 }
 

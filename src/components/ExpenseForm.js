@@ -1,8 +1,7 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import styled from "styled-components";
-import trash from "../assets/trash.png";
-import HeroPlus from "../assets/heroicons_plus.svg";
-import HeroMinus from "../assets/heroicons_minus.svg";
+import ExpensesList from "./ExpensesList";
+import { AccountingContext } from "../contexts/AccountingContext";
 const FormComponent = styled.div`
   text-align: center;
 
@@ -77,55 +76,53 @@ const FormComponent = styled.div`
     }
   }
 `;
+const init = {
+  amount: 0,
+  type: 'income',
+  date: 'Date not Entered!',
+  category: 'car',
+  id: Math.floor(Math.random() * 1000)
+};
 
 const ExpenseForm = () => {
+  const {setAccounts}  = useContext(AccountingContext);
+  const [accountStatus, setAccountStatus] = useState(init);
+
+  function handleSubmitExpense(e) {
+    e.preventDefault();
+
+    setAccounts(prev => {
+      return [...prev, accountStatus]
+    });
+    setAccountStatus(init);
+  }
+  function updateStatus(e, type) {
+    setAccountStatus(prev => {
+      return {
+        ...prev, 
+        [type]: e.target.value
+      }
+    })
+  }
   return (
     <FormComponent>
       <h1>Expense Tracker</h1>
       <h3>Balance</h3>
       <strong className="balance">$200</strong>
-      <table>
-        <tbody>
-          <tr>
-            <td>
-              <img src={HeroPlus} alt="Plus Icon" />
-            </td>
-            <td>$500</td>
-            <td>salary</td>
-            <td>2022-12-22</td>
-            <td className="trash">
-              <img src={trash} alt="A black trash" />
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <img src={HeroMinus} alt="Minus Icon" />
-            </td>
-            <td>$70</td>
-            <td>Shopping</td>
-            <td>2022-12-22</td>
-            <td className="trash">
-              <img src={trash} alt="A black trash" />
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <form>
-        <select required>
+      <ExpensesList />
+      <form onSubmit={handleSubmitExpense}>
+        <select required onChange={(e)=> updateStatus(e, 'type')} value={accountStatus.type}>
           <option value="income">Income</option>
           <option value="outcome">Outcome</option>
         </select>
-        <select required>
-          <option value="null" disabled>
-            Category
-          </option>
+        <select required onChange={(e)=> updateStatus(e, 'category')} value={accountStatus.category}>
           <option value="shopping">Shopping</option>
           <option value="salary">Salary</option>
           <option value="car">Car</option>
         </select>
-        <input type="number" min="0" placeholder="Amount" />
-        <input type="date" />
-        <button type="button" className="submit-form">Add New Item</button>
+        <input type="number" min="0" placeholder="Amount" onChange={(e)=> updateStatus(e, 'amount')} value={accountStatus.amount} />
+        <input type="date" onChange={(e)=> updateStatus(e, 'date')} />
+        <button className="submit-form">Add New Item</button>
       </form>
     </FormComponent>
   );
