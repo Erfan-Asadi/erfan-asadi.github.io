@@ -3,6 +3,10 @@ import Styled from 'styled-components';
 import PieChart from './PieChart';
 import { AccountingContext } from '../contexts/AccountingContext';
 
+function getPercentage(partialValue, totalValue) {
+  return  +((100 * partialValue ) / totalValue).toFixed(2)
+}
+
 const Table = Styled.section`
     display: flex;
     flex-direction: column;
@@ -30,12 +34,21 @@ const Table = Styled.section`
 const ExpenseTable = ({theme, type}) => {
   const {accounts}  = useContext(AccountingContext);
   const arrayOfExpenses = accounts.filter(account => account.type === type);
-  const sumOfAmounts = arrayOfExpenses.reduce((acc, curr) => acc + curr.amount, 0);
+  const sumOfExpensesAmounts = arrayOfExpenses.reduce((acc, curr) => acc + curr.amount, 0);
+
+  const changedToPercentageAmounts = arrayOfExpenses.map(account =>  {
+    //Getting the percentage of each amount from the total amount
+    const percent = getPercentage(account.amount, sumOfExpensesAmounts);
+    return percent;
+
+    // and sort them 
+  }).sort((a, b) => a - b)
+
   return (
     <Table theme={theme}>
         <h2>{type}</h2>
-        <strong className={type === 'income' && `income`}>${sumOfAmounts.toFixed(2)}</strong>
-        <PieChart />
+        <strong className={type === 'income' ? `income` : ''}>${sumOfExpensesAmounts.toFixed(2)}</strong>
+        <PieChart percentages={changedToPercentageAmounts} type={type}/>
     </Table>
   )
 }

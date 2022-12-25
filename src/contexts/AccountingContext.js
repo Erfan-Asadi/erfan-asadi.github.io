@@ -1,24 +1,25 @@
 import React, {createContext, useState} from 'react';
+import { v4 as uuid } from 'uuid';
 
 const init = [
     {
         type: 'income',
-        amount: 3.24,
-        id: 1,
+        amount: 30.24,
+        id: uuid().slice(0, 7),
         category: 'shopping',
         date: '2020-12-10'
     },
     {
         type: 'income',
-        amount: 403.8,
-        id: 2,
+        amount: 73.8,
+        id: uuid().slice(0, 7),
         category: 'car',
         date: '2020-05-04'
     },
     {
         type: 'expense',
         amount: 45.2,
-        id: 3,
+        id: uuid().slice(0, 7),
         category: 'sport',
         date: '2023-12-10'
     }

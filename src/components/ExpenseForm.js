@@ -1,7 +1,9 @@
 import React, { useContext, useState } from "react";
+import { v4 as uuid } from 'uuid';
 import styled from "styled-components";
 import ExpensesList from "./ExpensesList";
 import { AccountingContext } from "../contexts/AccountingContext";
+
 const FormComponent = styled.div`
   text-align: center;
 
@@ -14,7 +16,8 @@ const FormComponent = styled.div`
   }
   h3 {
     margin: 14px 0 8px;
-    font-size: 20px;
+    font-size: 26px;
+    color: #444;
   }
   .balance {
     font-size: 30px;
@@ -79,14 +82,14 @@ const FormComponent = styled.div`
     }
   }
 `;
+
 const init = {
   amount: 0,
   type: 'income',
   date: 'Not Entered!',
   category: 'car',
-  id: Math.floor(Math.random() * 1000)
+  id: 0
 };
-
 const ExpenseForm = () => {
   const {setAccounts, accounts}  = useContext(AccountingContext);
   const [accountStatus, setAccountStatus] = useState(init);
@@ -100,7 +103,7 @@ const ExpenseForm = () => {
     e.preventDefault();
 
     setAccounts(prev => {
-      return [...prev, accountStatus]
+      return [...prev, {...accountStatus, id: uuid()}]
     }); 
     setAccountStatus(init);
   }
