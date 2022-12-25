@@ -1,13 +1,12 @@
 import React, { useContext } from "react";
 import { AccountingContext } from "../contexts/AccountingContext";
-
 import trash from "../assets/trash.png";
 import HeroPlus from "../assets/heroicons_plus.svg";
 import HeroMinus from "../assets/heroicons_minus.svg";
 
 const ExpenseItem = ({ item }) => {
   const { setAccounts } = useContext(AccountingContext);
-  
+
   function handleRemoveExpense() {
     setAccounts((prev) => {
       const filteredExpenses = prev.filter((expense) => expense.id !== item.id);

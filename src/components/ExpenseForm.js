@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { v4 as uuid } from 'uuid';
+import { v4 as uuid } from "uuid";
 import styled from "styled-components";
 import ExpensesList from "./ExpensesList";
 import { AccountingContext } from "../contexts/AccountingContext";
@@ -9,10 +9,10 @@ const FormComponent = styled.div`
 
   h1 {
     font-size: 34px;
-    background: -webkit-linear-gradient(0deg, #2B61E5, #da2628 );
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  font-weight: 800;
+    background: -webkit-linear-gradient(0deg, #2b61e5, #da2628);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 800;
   }
   h3 {
     margin: 14px 0 8px;
@@ -85,56 +85,74 @@ const FormComponent = styled.div`
 
 const init = {
   amount: 0,
-  type: 'income',
-  date: 'Not Entered!',
-  category: 'car',
-  id: 0
+  type: "income",
+  date: "Not Entered!",
+  category: "car",
+  id: 0,
 };
 const ExpenseForm = () => {
-  const {setAccounts, accounts}  = useContext(AccountingContext);
+  const { setAccounts, accounts } = useContext(AccountingContext);
   const [accountStatus, setAccountStatus] = useState(init);
 
-  const sumOfIncomes = accounts.filter(account => account.type === 'income').reduce((acc, curr) => acc + curr.amount,0);
-  const sumOfExpenses = accounts.filter(account => account.type === 'expense').reduce((acc, curr) => acc + curr.amount,0);
+  const sumOfIncomes = accounts
+    .filter((account) => account.type === "income")
+    .reduce((acc, curr) => acc + curr.amount, 0);
+  const sumOfExpenses = accounts
+    .filter((account) => account.type === "expense")
+    .reduce((acc, curr) => acc + curr.amount, 0);
 
-  const balance = Math.floor(sumOfIncomes - sumOfExpenses );
-  
+  const balance = Math.floor(sumOfIncomes - sumOfExpenses);
+
   function handleSubmitExpense(e) {
     e.preventDefault();
 
-    setAccounts(prev => {
-      return [...prev, {...accountStatus, id: uuid()}]
-    }); 
+    setAccounts((prev) => {
+      return [...prev, { ...accountStatus, id: uuid() }];
+    });
     setAccountStatus(init);
   }
   function updateStatus(e, type) {
     const value = isNaN(e.target.value) ? e.target.value : +e.target.value;
 
-    setAccountStatus(prev => {
+    setAccountStatus((prev) => {
       return {
-        ...prev, 
-        [type]: value
-      }
-    })
+        ...prev,
+        [type]: value,
+      };
+    });
   }
   return (
     <FormComponent>
       <h1>Expense Tracker</h1>
       <h3>Balance</h3>
-      <strong className={`balance ${balance < 0 && 'red'}`}>${balance}</strong>
+      <strong className={`balance ${balance < 0 && "red"}`}>${balance}</strong>
       <ExpensesList />
       <form onSubmit={handleSubmitExpense}>
-        <select required onChange={(e)=> updateStatus(e, 'type')} value={accountStatus.type}>
+        <select
+          required
+          onChange={(e) => updateStatus(e, "type")}
+          value={accountStatus.type}
+        >
           <option value="income">Income</option>
           <option value="expense">Expense</option>
         </select>
-        <select required onChange={(e)=> updateStatus(e, 'category')} value={accountStatus.category}>
+        <select
+          required
+          onChange={(e) => updateStatus(e, "category")}
+          value={accountStatus.category}
+        >
           <option value="shopping">Shopping</option>
           <option value="salary">Salary</option>
           <option value="car">Car</option>
         </select>
-        <input type="number" min="0" placeholder="Amount" onChange={(e)=> updateStatus(e, 'amount')} value={accountStatus.amount} />
-        <input type="date" onChange={(e)=> updateStatus(e, 'date')} />
+        <input
+          type="number"
+          min="0"
+          placeholder="Amount"
+          onChange={(e) => updateStatus(e, "amount")}
+          value={accountStatus.amount}
+        />
+        <input type="date" onChange={(e) => updateStatus(e, "date")} />
         <button className="submit-form">Add New Item</button>
       </form>
     </FormComponent>

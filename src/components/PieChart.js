@@ -70,21 +70,23 @@ const PieComponent = Styled.div`
 `;
 const PieChart = ({ percentages, type }) => {
   const { accounts } = useContext(AccountingContext);
-  const filteredAccounts = accounts.filter(account => account.type === type);
+  const filteredAccounts = accounts.filter((account) => account.type === type);
   let palleteColor;
- 
+
   function makeGradient(values) {
     const resultStack = [];
     let prev = 0;
     for (let i = 0; i < values.length; i++) {
-       palleteColor = type === 'income' ? greenPallete : redPallete;
+      palleteColor = type === "income" ? greenPallete : redPallete;
       // if we reach last item, we should generate different format gradient
-      if(i+1 === undefined ) {
+      if (i + 1 === undefined) {
         resultStack.push(`${palleteColor[i]} ${prev}%`);
         break;
       }
-      resultStack.push(`${palleteColor[i]} ${prev}%, ${palleteColor[i]} ${values[i]}%`);
-      
+      resultStack.push(
+        `${palleteColor[i]} ${prev}%, ${palleteColor[i]} ${values[i]}%`
+      );
+
       //The end value of the interval in the current round must be
       // the starting value of the interval in the next round
       prev = +values[i];
@@ -97,7 +99,8 @@ const PieChart = ({ percentages, type }) => {
       <ul className="slices-list">
         {filteredAccounts.map((account, index) => (
           <li className="item" key={uuid()}>
-            <span style={{backgroundColor: palleteColor[index]}}></span>{account.category}
+            <span style={{ backgroundColor: palleteColor[index] }}></span>
+            {account.category}
           </li>
         ))}
       </ul>
