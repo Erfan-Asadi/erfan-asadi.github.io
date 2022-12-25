@@ -20,6 +20,9 @@ const FormComponent = styled.div`
     font-size: 30px;
     color: green;
     font-weight: 500;
+    &.red {
+      color: #da2628;
+    }
   }
   table {
     width: 100%;
@@ -79,28 +82,35 @@ const FormComponent = styled.div`
 const init = {
   amount: 0,
   type: 'income',
-  date: 'Date not Entered!',
+  date: 'Not Entered!',
   category: 'car',
   id: Math.floor(Math.random() * 1000)
 };
 
 const ExpenseForm = () => {
-  const {setAccounts}  = useContext(AccountingContext);
+  const {setAccounts, accounts}  = useContext(AccountingContext);
   const [accountStatus, setAccountStatus] = useState(init);
 
+  const sumOfIncomes = accounts.filter(account => account.type === 'income').reduce((acc, curr) => acc + curr.amount,0);
+  const sumOfExpenses = accounts.filter(account => account.type === 'expense').reduce((acc, curr) => acc + curr.amount,0);
+
+  const balance = Math.floor(sumOfIncomes - sumOfExpenses );
+  
   function handleSubmitExpense(e) {
     e.preventDefault();
 
     setAccounts(prev => {
       return [...prev, accountStatus]
-    });
+    }); 
     setAccountStatus(init);
   }
   function updateStatus(e, type) {
+    const value = isNaN(e.target.value) ? e.target.value : +e.target.value;
+
     setAccountStatus(prev => {
       return {
         ...prev, 
-        [type]: e.target.value
+        [type]: value
       }
     })
   }
@@ -108,12 +118,12 @@ const ExpenseForm = () => {
     <FormComponent>
       <h1>Expense Tracker</h1>
       <h3>Balance</h3>
-      <strong className="balance">$200</strong>
+      <strong className={`balance ${balance < 0 && 'red'}`}>${balance}</strong>
       <ExpensesList />
       <form onSubmit={handleSubmitExpense}>
         <select required onChange={(e)=> updateStatus(e, 'type')} value={accountStatus.type}>
           <option value="income">Income</option>
-          <option value="outcome">Outcome</option>
+          <option value="expense">Expense</option>
         </select>
         <select required onChange={(e)=> updateStatus(e, 'category')} value={accountStatus.category}>
           <option value="shopping">Shopping</option>
