@@ -143,7 +143,12 @@ const ExpenseForm = () => {
         >
           <option value="shopping">Shopping</option>
           <option value="salary">Salary</option>
-          <option value="car">Car</option>
+          <option value="cafe&restaurant">Cafe & Restaurant</option>
+          <option value="daily">Daily</option>
+          <option value="bill">Bill</option>
+          <option value="beauty&bealth">Beauty&Health</option>
+          <option value="home">Home</option>
+          <option value="entertainment">Entertainment</option>
         </select>
         <input
           type="number"

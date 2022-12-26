@@ -79,7 +79,7 @@ const PieChart = ({ percentages, type }) => {
     for (let i = 0; i < values.length; i++) {
       palleteColor = type === "income" ? greenPallete : redPallete;
       // if we reach last item, we should generate different format gradient
-      if (i + 1 === undefined) {
+      if (values[i + 1] === undefined && values.length > 1) {
         resultStack.push(`${palleteColor[i]} ${prev}%`);
         break;
       }
