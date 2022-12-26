@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/index.html/static/css/main.b69031e7.css",
-    "main.js": "/index.html/static/js/main.3e3cb247.js",
-    "index.html": "/index.html/index.html",
-    "static/media/heroicons_plus.svg": "/index.html/static/media/heroicons_plus.519ac82a470eff2e2509724429d04716.svg",
-    "static/media/heroicons_minus.svg": "/index.html/static/media/heroicons_minus.c88f85d713fea577cc9ef16abdba3a0b.svg",
-    "main.b69031e7.css.map": "/index.html/static/css/main.b69031e7.css.map",
-    "main.3e3cb247.js.map": "/index.html/static/js/main.3e3cb247.js.map"
+    "main.css": "/expense-tracker-new/static/css/main.b69031e7.css",
+    "main.js": "/expense-tracker-new/static/js/main.2564c8a7.js",
+    "index.html": "/expense-tracker-new/index.html",
+    "static/media/heroicons_plus.svg": "/expense-tracker-new/static/media/heroicons_plus.519ac82a470eff2e2509724429d04716.svg",
+    "static/media/heroicons_minus.svg": "/expense-tracker-new/static/media/heroicons_minus.c88f85d713fea577cc9ef16abdba3a0b.svg",
+    "main.b69031e7.css.map": "/expense-tracker-new/static/css/main.b69031e7.css.map",
+    "main.2564c8a7.js.map": "/expense-tracker-new/static/js/main.2564c8a7.js.map"
   },
   "entrypoints": [
     "static/css/main.b69031e7.css",
-    "static/js/main.3e3cb247.js"
+    "static/js/main.2564c8a7.js"
   ]
 }
